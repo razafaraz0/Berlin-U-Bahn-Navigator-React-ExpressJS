@@ -1,6 +1,6 @@
-import { getAccessibleLines } from "../getAccessibleLines";
-import { Line } from "../Line";
-import { LineType } from "../LineType";
+import {getAccessibleLines} from "../getAccessibleLines";
+import {Line} from "../types/Line";
+import {LineType} from "../types/LineType";
 
 const line1: Line = {
   name: "dummy",

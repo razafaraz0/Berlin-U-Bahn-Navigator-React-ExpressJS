@@ -1,7 +1,7 @@
-import { Direction } from "../Direction";
-import { getNextStops } from "../getNextStops";
-import { Line } from "../Line";
-import { LineType } from "../LineType";
+import {Direction} from "../types/Direction";
+import {getNextStops} from "../getNextStops";
+import {Line} from "../types/Line";
+import {LineType} from "../types/LineType";
 
 describe("linear line", () => {
   const linearLine: Line = {

@@ -1,4 +1,4 @@
-import { Line } from "./Line";
+import {Line} from "./types/Line";
 
 export type RouteSegment = {
   /**
@@ -17,7 +17,7 @@ export type RouteSegment = {
 export type Route = RouteSegment[];
 
 /**
- * returns the `Route` from `originStation` to `destinationStation`.
+ * Q.3 returns the `Route` from `originStation` to `destinationStation`.
  * If there are multiple possible routes, you can return any of those routes.
  *
  * You can assume `allLines` to be the sample data included in this project, which means you can make the following assumptions:
