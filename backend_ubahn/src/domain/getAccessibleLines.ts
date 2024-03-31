@@ -1,8 +1,7 @@
 import {Line} from "./types/Line";
 
 /**
- *Q 1. Given a line that is passed with a GET request, which stations are served by the line?
- * returns an array of `Line`s that are accessible from the station with name `fromStation`.
+ *Q3 given a line and a station that are passed with a GET request, which other lines are accessible at that station?
  *
  * @returns all lines that are accessible on station `fromStation` in line `onLine`, except `onLine` itself
  */
@@ -12,6 +11,13 @@ export function getAccessibleLines(
   fromStation: string,
   allLines: Line[]
 ): Line[] {
-  // TODO: implement
-  throw new Error("not implemented");
+  // Check if the given station is on the provided line
+  if (!onLine.stations.includes(fromStation)) {
+    throw new Error(`Station ${fromStation} is not on line ${onLine.name}.`);
+  }
+  const accessibleLines = allLines.filter(
+    (line) => line.name !== onLine.name && line.stations.includes(fromStation)
+  );
+
+  return accessibleLines;
 }

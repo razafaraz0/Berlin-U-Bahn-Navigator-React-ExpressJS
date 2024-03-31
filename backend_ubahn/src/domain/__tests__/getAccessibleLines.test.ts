@@ -18,12 +18,14 @@ const line2: Line = {
 
 const allLines = [line1, line2];
 
-it(`returns empty array if no other line is accessible`, () => {
-  const result = getAccessibleLines(line1, "Station1", allLines);
-  expect(result).toStrictEqual([]);
-});
+describe("Get Accessible Lines", () => {
+  it(`returns empty array if no other line is accessible`, () => {
+    const result = getAccessibleLines(line1, "Station1", allLines);
+    expect(result).toStrictEqual([]);
+  });
 
-it(`returns other line if another line matches the station`, () => {
-  const result = getAccessibleLines(line1, "Station3", allLines);
-  expect(result).toStrictEqual([line2]);
+  it(`returns other line if another line matches the station`, () => {
+    const result = getAccessibleLines(line1, "Station3", allLines);
+    expect(result).toStrictEqual([line2]);
+  });
 });
