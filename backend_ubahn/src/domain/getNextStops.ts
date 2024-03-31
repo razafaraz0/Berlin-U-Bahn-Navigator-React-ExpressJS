@@ -18,16 +18,35 @@ export function getNextStops(
    *
    * if `backward`, returns the stations that precede `fromStation` in the `line.stations` array.
    */
-  direction: Direction,
+  direction: Direction = Direction.Forward,
   /**
    * the maximum number of stops that should be returned
    */
-  nStops: number,
+  nStops: number = 3,
   /**
    * which station within `line` to base the computation on
    */
   fromStation: string
 ): string[] {
   // TODO: implement
-  throw new Error("Not implemented");
+  const startStationIndex = line.stations.indexOf(fromStation);
+  const stations = line.stations;
+  //That station doesn't exist
+  if (startStationIndex === -1 || stations === undefined) {
+    throw new Error(
+      `Station ${fromStation} does not exist found on Line ${line.name}.`
+    );
+  }
+
+  if (direction === Direction.Forward) {
+    const endIndex = startStationIndex + 1 + nStops;
+    return stations.slice(startStationIndex + 1, endIndex);
+  }
+  if (direction === Direction.Backward) {
+    // to prevent to go have out of bound negative index
+    const endIndex = Math.max(0, startStationIndex - nStops);
+    return stations.slice(endIndex, startStationIndex).reverse();
+  }
+
+  return [];
 }
