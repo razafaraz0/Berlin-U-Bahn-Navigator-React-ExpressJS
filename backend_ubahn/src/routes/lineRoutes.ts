@@ -1,6 +1,10 @@
 import express from "express";
 import {lines} from "../data";
 import {getStationsByLine} from "../domain/getStationsByLine";
+import {getNextStops} from "../domain/getNextStops";
+import {Direction} from "../domain/types/Direction";
+import {getAccessibleLines} from "../domain/getAccessibleLines";
+import {lineExists} from "../domain/middleware/lineExist";
 
 const router = express.Router();
 
@@ -25,48 +29,90 @@ router.get(
   }
 );
 
-// router.get(
-//   "/:id",
-//   /**
-//    * returns a specific line by id, e.g. `GET /lines/U8`
-//    */
-//   async function getLineById(req, res) {
-//     // find the specific line by key
-//     const requestedLineId = req.params.id;
+router.get(
+  "/:id",
+  lineExists,
+  /**
+   * returns a specific line by id, e.g. `GET /lines/U8`
+   */
+  async (req, res) => {
+    try {
+      res.json(req.line);
+    } catch (error) {
+      res
+        .status(500)
+        .json({message: "Failed to get next stops due to an internal error."});
+    }
+  }
+);
 
-//     const requestedLine = lines.find((line) => line.name === requestedLineId);
-//     if (!requestedLine) {
-//       res.sendStatus(404);
-//       return;
-//     }
-
-//     res.send(requestedLine);
-//   }
-// );
-
-// TODO: add further routes here
 router.get(
   "/:id/stations",
+  lineExists,
   /**
-   * returns a list of stations by Line, e.g. `GET /lines/U8`
+   * Q1: returns a list of all stations by Line, e.g. `GET /lines/U8/stations`
    */
-  async function getStationsById(req, res) {
+  async (req, res) => {
     const requestedLineName = req.params.id;
-
-    // Use the `getStationsByLine` function to get the stations.
-    // This function expects a string (line name) and returns an array of station names or null
     const stations = getStationsByLine(requestedLineName, lines);
-
-    if (!stations) {
-      // If no stations are returned, it means the line was not found
-      res
-        .status(404)
-        .send({message: `Line ${requestedLineName} does not exist found.`});
-      return;
-    }
-
-    // Send the stations array as response
     res.json(stations);
+  }
+);
+
+router.get(
+  "/:id/stations/:stationName/nextStations",
+  lineExists,
+  /**
+   * Q2: returns a list of next N stations in that line Line, e.g. `GET /lines/U8/stations/Quermatengraben/nextStations?nStops=10`
+   */
+  async (req, res) => {
+    const {stationName} = req.params;
+    const {nStops = "3", direction = "forward"} = req.query;
+
+    const stopsCount = parseInt(nStops as string, 10);
+    const validDirection =
+      direction === Direction.Backward ? Direction.Backward : Direction.Forward;
+
+    try {
+      if (req.line) {
+        const nextStops = getNextStops(
+          req.line,
+          validDirection,
+          stopsCount,
+          stationName
+        );
+        res.json({nextStops});
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({message: "Failed to get next stops due to an internal error."});
+    }
+  }
+);
+
+router.get(
+  "/:id/stations/:stationName/accessibleLines",
+  lineExists,
+  /**
+   * Q3: returns a list of the lines served by the next stations e.g. `GET /lines/U1/stations/Gleisdreieck/accessibleLines`
+   */
+  (req, res) => {
+    try {
+      const {stationName} = req.params;
+      if (req.line) {
+        const accessibleLines = getAccessibleLines(
+          req.line,
+          stationName,
+          lines
+        );
+        res.json({accessibleLines});
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({message: "Failed to get next stops due to an internal error."});
+    }
   }
 );
 
