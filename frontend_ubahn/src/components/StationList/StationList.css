@@ -1,0 +1,6 @@
+.stationListPaper {
+  width: 100%;
+  max-width: 360px;
+  max-height: 400px;
+  overflow-y: auto; /* Enables vertical scrolling */
+}

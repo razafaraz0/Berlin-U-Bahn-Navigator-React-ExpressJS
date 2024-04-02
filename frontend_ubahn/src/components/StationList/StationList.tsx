@@ -5,6 +5,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import "./StationList.css";
 
 type StationListProps = {
   stations: string[];
@@ -18,14 +19,7 @@ export function StationList(props: StationListProps) {
       <Typography variant="h4" component="h4">
         Station List
       </Typography>
-      <Paper
-        style={{
-          width: "100%",
-          maxWidth: 360,
-          maxHeight: 400,
-          overflowY: "auto", // This enables vertical scrolling
-        }}
-      >
+      <Paper className="stationListPaper">
         <List>
           {props.stations.map((station, index) => {
             return (

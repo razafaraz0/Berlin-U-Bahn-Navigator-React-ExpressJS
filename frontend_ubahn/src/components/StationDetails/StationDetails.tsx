@@ -2,6 +2,7 @@ import {Line} from "../../types/Line";
 import {StationList} from "../StationList/StationList";
 import {LineSelector} from "../LineSelector/LineSelector";
 import {Box, Paper, Typography} from "@mui/material";
+import "./StationDetails.css";
 
 type TProps = {
   accessibleLines: Line[];
@@ -15,13 +16,7 @@ export default function StationDetails({accessibleLines, nextStops}: TProps) {
         Other Lines
       </Typography>
       {accessibleLines.length === 0 ? (
-        <Paper
-          style={{
-            padding: "20px",
-            width: "100%",
-            backgroundColor: "white",
-          }}
-        >
+        <Paper className="stationDetailsPaper">
           <Typography variant="h5" component="h5">
             No Other Line
           </Typography>
@@ -35,13 +30,7 @@ export default function StationDetails({accessibleLines, nextStops}: TProps) {
             <Typography variant="h4" component="h4">
               Station List
             </Typography>
-            <Paper
-              style={{
-                padding: "20px",
-                width: "100%",
-                backgroundColor: "white",
-              }}
-            >
+            <Paper className="stationDetailsPaper">
               <Typography variant="h5" component="h5">
                 No Other Stations
               </Typography>

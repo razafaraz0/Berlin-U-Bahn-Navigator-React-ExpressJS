@@ -1,5 +1,6 @@
 import {Box, Button, Paper, Typography} from "@mui/material";
 import {Line} from "../../types/Line";
+import "./LineSelector.css";
 
 type LineSelectorProps = {
   allLines: Line[];
@@ -7,13 +8,7 @@ type LineSelectorProps = {
 };
 export function LineSelector(props: LineSelectorProps) {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-      }}
-    >
+    <Box className="lineSelectorContainer">
       {props.allLines.map((line: Line) => {
         return (
           <Button

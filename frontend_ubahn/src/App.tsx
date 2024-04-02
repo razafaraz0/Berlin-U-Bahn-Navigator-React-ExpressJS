@@ -8,10 +8,7 @@ import {fetchStations} from "./hooks/getStations";
 import {getNextStationFromCurrentStation} from "./hooks/getNextStationFromCurrentStation";
 import {getAccessibleLines} from "./hooks/getAccessibleLines";
 import StationDetails from "./components/StationDetails/StationDetails";
-import {Box} from "@mui/material";
-
-// TODO
-//5. Fix height
+import {Typography} from "@mui/material";
 
 function App() {
   const [lines, setLines] = useState<Line[]>([]);
@@ -58,48 +55,39 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <Typography variant="h3">Berlin U-Bahn Information Center</Typography>
+      <div className="LineSelector">
         <LineSelector
           allLines={lines}
           onSelectLine={(val) => {
             handleOnLineSelect(val.name);
           }}
         />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column", // Stack vertically on smaller screens
-            "@media (min-width: 800px)": {
-              // Use media queries for responsiveness
-              flexDirection: "row", // Place side by side on larger screens
-            },
-            gap: 20,
-            mt: 5,
-          }}
-        >
-          <Box sx={{flex: 1, width: 250}}>
-            {/* Each takes equal space */}
-            {stationList && currentLine && (
-              <StationList
-                stations={stationList}
-                onSelectStation={(station) =>
-                  handleOnStationSelect(currentLine, station)
-                }
+      </div>
+
+      <div className="StationDetailContainer">
+        <div className="StationDetailChildContainer">
+          {/* Each takes equal space */}
+          {stationList && currentLine && (
+            <StationList
+              stations={stationList}
+              onSelectStation={(station) =>
+                handleOnStationSelect(currentLine, station)
+              }
+            />
+          )}
+        </div>
+        <div className="StationDetailChildContainer">
+          {selectedStation &&
+            accessibleLinesFromStation !== undefined &&
+            nextStops !== undefined && (
+              <StationDetails
+                accessibleLines={accessibleLinesFromStation}
+                nextStops={nextStops}
               />
             )}
-          </Box>
-          <Box sx={{flex: 1, width: 250}}>
-            {selectedStation &&
-              accessibleLinesFromStation !== undefined &&
-              nextStops !== undefined && (
-                <StationDetails
-                  accessibleLines={accessibleLinesFromStation}
-                  nextStops={nextStops}
-                />
-              )}
-          </Box>
-        </Box>
-      </header>
+        </div>
+      </div>
     </div>
   );
 }
