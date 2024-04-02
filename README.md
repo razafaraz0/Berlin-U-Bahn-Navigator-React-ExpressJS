@@ -15,12 +15,6 @@ npm ci
 npm start
 ```
 
-To check if the server works, you can query a dummy endpoint:
-
-```sh
-curl http://localhost:8080/hello
-# -> Hello World"
-```
 
 ### Frontend
 
