@@ -22,10 +22,6 @@ curl http://localhost:8080/hello
 # -> Hello World"
 ```
 
-In `src/data/lines.json` you'll find the definition of the sample data. You can access this by importing `lines` from `src/data`. You may want to postprocess the data in some way.
-
-There's a function in `src/domain/getNextStops.ts` that you should implement, see the corresponding tests in the `__tests__` directory.
-
 ### Frontend
 
 ```sh
