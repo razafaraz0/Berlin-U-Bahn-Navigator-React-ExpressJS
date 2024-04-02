@@ -1,5 +1,5 @@
 import {Box, Button, Paper, Typography} from "@mui/material";
-import {Line} from "../types/Line";
+import {Line} from "../../types/Line";
 
 type LineSelectorProps = {
   allLines: Line[];
