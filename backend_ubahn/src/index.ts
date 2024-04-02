@@ -1,5 +1,6 @@
-import { lineRoutes } from "./routes/lineRoutes";
+import {lineRoutes} from "./routes/lineRoutes";
 import express from "express";
+import {routeRoutes} from "./routes/routeRoutes";
 
 const app = express();
 const port = 8080;
@@ -16,6 +17,7 @@ app.use(function enableCors(req, res, next) {
 app.use(express.json());
 
 app.use("/lines", lineRoutes);
+app.use("/routes", routeRoutes);
 app.get("/hello", (req, res) => res.send("Hello World!"));
 
 app.listen(port, () => console.log(`Backend listening on port ${port}!`));

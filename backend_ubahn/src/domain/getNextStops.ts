@@ -28,7 +28,6 @@ export function getNextStops(
    */
   fromStation: string
 ): string[] {
-  // TODO: implement
   const startStationIndex = line.stations.indexOf(fromStation);
   const stations = line.stations;
   //That station doesn't exist
