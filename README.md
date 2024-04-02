@@ -47,7 +47,7 @@ I found the project both interesting and enjoyable, completing it within 4.5 hou
 Given additional time, I would focus on the following improvements:
 
 - Testing: Expand Jest test coverage to ensure all components and hooks are thoroughly validated.
-- State Management: Transition to TanStack (formerly React Query) to leverage advanced data-fetching capabilities such as efficient caching, background updates, and automatic retries.
+- Data Fetching: Transition to TanStack (formerly React Query) to leverage advanced data-fetching capabilities such as efficient caching, background updates, and automatic retries.
 - User Experience: Introduce a loading indicator to provide immediate feedback during data fetching, enhancing - the user interaction and smoothness of the UI.
 - Performance Optimization: Implement a more sophisticated list management solution, like a virtualized list, to efficiently handle large datasets while maintaining high performance and responsiveness.
 
